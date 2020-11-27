@@ -158,26 +158,20 @@ function App() {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  const getCities = () => {
-    if (selectedState === "") {
-      return [];
-    }
-    let cities;
+  const getCities = (stateRcd) => {
+    let cities = [];
     states.forEach((state) => {
-      if (state.name === selectedState) {
+      if (state.name === stateRcd) {
         cities = state.cities;
       }
     });
     return cities;
   };
-  const getTowns = () => {
-    if (selectedCity === "") {
-      return [];
-    }
+  const getTowns = (cityRcd) => {
     let cities = getCities(selectedState);
-    let towns;
+    let towns = [];
     cities.forEach((city) => {
-      if (city.name === selectedCity) {
+      if (city.name === cityRcd) {
         towns = city.towns;
       }
     });
@@ -193,24 +187,31 @@ function App() {
             onClick={(event) => setSelectedState(event.target.innerText)}
           >
             {state.name}
-          </li>
-        ))}
-      </ul>
-      <ul>
-        {getCities(selectedState).map((city, index) => (
-          <li
-            key={city.name}
-            id={"city" + (index + 1)}
-            onClick={(event) => setSelectedCity(event.target.innerText)}
-          >
-            {city.name}
-          </li>
-        ))}
-      </ul>
-      <ul>
-        {getTowns(selectedCity).map((town, index) => (
-          <li key={town.name} id={"town" + (index + 1)}>
-            {town.name}
+            {state.name === selectedState && (
+              <ul>
+                {getCities(state.name).map((city, index) => (
+                  <li
+                    key={city.name}
+                    id={"city" + (index + 1)}
+                    onClick={(event) => {
+                      setSelectedCity(event.target.innerText);
+                      event.stopPropagation();
+                    }}
+                  >
+                    {city.name}
+                    {city.name === selectedCity && (
+                      <ul>
+                        {getTowns(city.name).map((town, index) => (
+                          <li key={town.name} id={"town" + (index + 1)}>
+                            {town.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
