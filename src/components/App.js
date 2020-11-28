@@ -193,17 +193,17 @@ function App() {
           {state.name}
         </button>
       ))}
-      <h2>Cities</h2>
+      <h1>Cities</h1>
       {cities.map((city, index) => (
         <button key={city.name} id={`city${index + 1}`} onClick={handleCity}>
           {city.name}
         </button>
       ))}
-      <h2>Towns</h2>
+      <h1>Towns</h1>
       {towns.map((town, index) => (
-        <button key={town.name} id={`town${index + 1}`}>
+        <div key={town.name} id={`town${index + 1}`}>
           {town.name}
-        </button>
+        </div>
       ))}
     </div>
   );
