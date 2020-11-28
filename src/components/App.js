@@ -190,23 +190,23 @@ function App() {
     <div id="main">
       <h1>States</h1>
       {states.map((state, index) => (
-        <div
+        <button
           key={state.name}
           id={`state${index + 1}`}
           onClick={() => handleState(index)}
         >
           {state.name}
-        </div>
+        </button>
       ))}
       <h1>Cities</h1>
       {cities.map((city, index) => (
-        <div
+        <button
           key={city.name}
           id={`city${index + 1}`}
           onClick={() => handleCity(city.name)}
         >
           {city.name}
-        </div>
+        </button>
       ))}
       <h1>Towns</h1>
       {towns.map((town, index) => (
