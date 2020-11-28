@@ -171,6 +171,7 @@ function App() {
       return;
     }
     setCities(citiesRetrieved);
+    setTowns([]);
   };
   const handleCity = (event) => {
     let townsRetrieved = [];
