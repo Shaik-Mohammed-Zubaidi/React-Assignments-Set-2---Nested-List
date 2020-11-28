@@ -155,65 +155,52 @@ const states = [
 ];
 
 function App() {
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [cities, setCities] = useState([]);
+  const [towns, setTowns] = useState([]);
 
-  const getCities = () => {
-    let cities = [];
+  const handleState = (event) => {
+    let citiesRetrieved = [];
     states.forEach((state) => {
-      if (state.name === selectedState) {
-        cities = state.cities;
+      if (state.name === event.target.innerText) {
+        citiesRetrieved = state.cities;
       }
     });
-    return cities;
+    if (cities.length !== 0 && cities[0].name === citiesRetrieved[0].name) {
+      setCities([]);
+      setTowns([]);
+      return;
+    }
+    setCities(citiesRetrieved);
   };
-  const getTowns = () => {
-    let cities = getCities();
-    let towns = [];
+  const handleCity = (event) => {
+    let townsRetrieved = [];
     cities.forEach((city) => {
-      if (city.name === selectedCity) {
-        towns = city.towns;
+      if (city.name === event.target.innerText) {
+        townsRetrieved = city.towns;
       }
     });
-    return towns;
+    if (towns.length !== 0 && towns[0].name === townsRetrieved[0].name) {
+      setTowns([]);
+      return;
+    }
+    setTowns(townsRetrieved);
   };
   return (
     <div id="main">
       <h1>States</h1>
       {states.map((state, index) => (
-        <button
-          key={state.name}
-          id={`state${index + 1}`}
-          onClick={(event) => {
-            if (selectedState === event.target.innerText) {
-              setSelectedState("");
-              setSelectedCity("");
-              return;
-            }
-            setSelectedState(event.target.innerText);
-          }}
-        >
+        <button key={state.name} id={`state${index + 1}`} onClick={handleState}>
           {state.name}
         </button>
       ))}
       <h2>Cities</h2>
-      {getCities().map((city, index) => (
-        <button
-          key={city.name}
-          id={`city${index + 1}`}
-          onClick={(event) => {
-            if (selectedCity === event.target.innerText) {
-              setSelectedCity("");
-              return;
-            }
-            setSelectedCity(event.target.innerText);
-          }}
-        >
+      {cities.map((city, index) => (
+        <button key={city.name} id={`city${index + 1}`} onClick={handleCity}>
           {city.name}
         </button>
       ))}
       <h2>Towns</h2>
-      {getTowns().map((town, index) => (
+      {towns.map((town, index) => (
         <button key={town.name} id={`town${index + 1}`}>
           {town.name}
         </button>
