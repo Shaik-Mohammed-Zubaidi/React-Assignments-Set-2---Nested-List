@@ -179,7 +179,7 @@ function App() {
   };
   return (
     <div id="main">
-      <ul>
+      <ol>
         {states.map((state, index) => (
           <li
             key={state.name}
@@ -188,7 +188,7 @@ function App() {
           >
             {state.name}
             {state.name === selectedState && (
-              <ul>
+              <ol>
                 {getCities(state.name).map((city, index) => (
                   <li
                     key={city.name}
@@ -200,21 +200,21 @@ function App() {
                   >
                     {city.name}
                     {city.name === selectedCity && (
-                      <ul>
+                      <ol>
                         {getTowns(city.name).map((town, index) => (
                           <li key={town.name} id={"town" + (index + 1)}>
                             {town.name}
                           </li>
                         ))}
-                      </ul>
+                      </ol>
                     )}
                   </li>
                 ))}
-              </ul>
+              </ol>
             )}
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   );
 }
