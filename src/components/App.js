@@ -183,7 +183,7 @@ function App() {
         {states.map((state, index) => (
           <li
             key={state.name}
-            id={"state" + (index + 1)}
+            id={`state${index + 1}`}
             onClick={(event) => setSelectedState(event.target.innerText)}
           >
             {state.name}
@@ -192,7 +192,7 @@ function App() {
                 {getCities(state.name).map((city, index) => (
                   <li
                     key={city.name}
-                    id={"city" + (index + 1)}
+                    id={`city${index + 1}`}
                     onClick={(event) => {
                       setSelectedCity(event.target.innerText);
                       event.stopPropagation();
@@ -202,7 +202,7 @@ function App() {
                     {city.name === selectedCity && (
                       <ol>
                         {getTowns(city.name).map((town, index) => (
-                          <li key={town.name} id={"town" + (index + 1)}>
+                          <li key={town.name} id={`town${index + 1}`}>
                             {town.name}
                           </li>
                         ))}
