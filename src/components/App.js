@@ -158,20 +158,20 @@ function App() {
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
-  const getCities = (stateRcd) => {
+  const getCities = () => {
     let cities = [];
     states.forEach((state) => {
-      if (state.name === stateRcd) {
+      if (state.name === selectedState) {
         cities = state.cities;
       }
     });
     return cities;
   };
-  const getTowns = (cityRcd) => {
-    let cities = getCities(selectedState);
+  const getTowns = () => {
+    let cities = getCities();
     let towns = [];
     cities.forEach((city) => {
-      if (city.name === cityRcd) {
+      if (city.name === selectedCity) {
         towns = city.towns;
       }
     });
@@ -179,42 +179,45 @@ function App() {
   };
   return (
     <div id="main">
-      <ol>
-        {states.map((state, index) => (
-          <li
-            key={state.name}
-            id={`state${index + 1}`}
-            onClick={(event) => setSelectedState(event.target.innerText)}
-          >
-            {state.name}
-            {state.name === selectedState && (
-              <ol>
-                {getCities(state.name).map((city, index) => (
-                  <li
-                    key={city.name}
-                    id={`city${index + 1}`}
-                    onClick={(event) => {
-                      setSelectedCity(event.target.innerText);
-                      event.stopPropagation();
-                    }}
-                  >
-                    {city.name}
-                    {city.name === selectedCity && (
-                      <ol>
-                        {getTowns(city.name).map((town, index) => (
-                          <li key={town.name} id={`town${index + 1}`}>
-                            {town.name}
-                          </li>
-                        ))}
-                      </ol>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            )}
-          </li>
-        ))}
-      </ol>
+      <h1>States</h1>
+      {states.map((state, index) => (
+        <button
+          key={state.name}
+          id={`state${index + 1}`}
+          onClick={(event) => {
+            if (selectedState === event.target.innerText) {
+              setSelectedState("");
+              setSelectedCity("");
+              return;
+            }
+            setSelectedState(event.target.innerText);
+          }}
+        >
+          {state.name}
+        </button>
+      ))}
+      <h2>Cities</h2>
+      {getCities().map((city, index) => (
+        <button
+          key={city.name}
+          id={`city${index + 1}`}
+          onClick={(event) => {
+            if (selectedCity === event.target.innerText) {
+              setSelectedCity("");
+              return;
+            }
+            setSelectedCity(event.target.innerText);
+          }}
+        >
+          {city.name}
+        </button>
+      ))}
+      <h2>Towns</h2>
+      {getTowns().map((town, index) => (
+        <button key={town.name} id={`town${index + 1}`}>
+          {town.name}
+        </button>
+      ))}
     </div>
   );
 }
