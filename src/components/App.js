@@ -158,10 +158,10 @@ function App() {
   const [cities, setCities] = useState([]);
   const [towns, setTowns] = useState([]);
 
-  const handleState = (event) => {
+  const handleState = (indexReceived) => {
     let citiesRetrieved = [];
-    states.forEach((state) => {
-      if (state.name === event.target.innerText) {
+    states.forEach((state, index) => {
+      if (index === indexReceived) {
         citiesRetrieved = state.cities;
       }
     });
@@ -173,10 +173,10 @@ function App() {
     setCities(citiesRetrieved);
     setTowns([]);
   };
-  const handleCity = (event) => {
+  const handleCity = (cityReceived) => {
     let townsRetrieved = [];
     cities.forEach((city) => {
-      if (city.name === event.target.innerText) {
+      if (city.name === cityReceived) {
         townsRetrieved = city.towns;
       }
     });
@@ -190,13 +190,21 @@ function App() {
     <div id="main">
       <h1>States</h1>
       {states.map((state, index) => (
-        <button key={state.name} id={`state${index + 1}`} onClick={handleState}>
+        <button
+          key={state.name}
+          id={`state${index + 1}`}
+          onClick={() => handleState(index)}
+        >
           {state.name}
         </button>
       ))}
       <h1>Cities</h1>
       {cities.map((city, index) => (
-        <button key={city.name} id={`city${index + 1}`} onClick={handleCity}>
+        <button
+          key={city.name}
+          id={`city${index + 1}`}
+          onClick={() => handleCity(city.name)}
+        >
           {city.name}
         </button>
       ))}
